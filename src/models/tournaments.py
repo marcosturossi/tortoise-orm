@@ -1,14 +1,15 @@
-from tortoise.models import Model
-from tortoise import fields
+from tortoise import fields, models
+from tortoise.contrib.pydantic import pydantic_model_creator
 
 
-class Tournament(Model):
-    # Defining `id` field is optional, it will be defined automatically
-    # if you haven't done it yourself
-    id = fields.IntField(pk=True)
+class Tournament(models.Model):
+    """models of Tournament"""
+
     name = fields.CharField(max_length=255)
 
-    # Defining ``__str__`` is also optional, but gives you pretty
-    # represent of model in debugger and interpreter
     def __str__(self):
         return self.name
+
+
+Tournament_Pydantic = pydantic_model_creator(Tournament, name="Tournament")
+TournamentIn_Pydantic = pydantic_model_creator(Tournament, name="TournamentIn")
